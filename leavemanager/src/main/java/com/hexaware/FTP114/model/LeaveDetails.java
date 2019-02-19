@@ -4,6 +4,7 @@ import com.hexaware.FTP114.persistence.DbConnection;
 import com.hexaware.FTP114.persistence.EmployeeDAO;
 import com.hexaware.FTP114.persistence.LeaveDetailsDAO;
 
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.List;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class LeaveDetails {
    * levEndDate to store laeve EndDate.
    * levType to store LeaveType.
    * levStatus to store LeaveStatus.
+   * levStatusMl to store LeaveMaternityStatus.
    * levReason to store leave Reason.
    * levApplyDate to store leave ApplyDate.
    * levMgrComments to store leave Manager Comments.
@@ -33,6 +35,7 @@ public class LeaveDetails {
   private Date levEndDate;
   private LeaveType levType;
   private LeaveStatus levStatus;
+  private LeaveMaternityStatus levStatusMl;
   private String levReason;
   private Date levApplyDate;
   private String levMgrComments;
@@ -47,7 +50,17 @@ public class LeaveDetails {
       return false;
     }
     LeaveDetails lev = (LeaveDetails) obj;
-    if (Objects.equals(levId, lev.levId)) {
+    if (Objects.equals(levId, lev.levId)
+        && Objects.equals(levNoOfDays, lev.levNoOfDays)
+        && Objects.equals(levStartDate, lev.levStartDate)
+        && Objects.equals(levEndDate, lev.levEndDate)
+        && Objects.equals(levType, lev.levType)
+        && Objects.equals(levStatus, lev.levStatus)
+        && Objects.equals(levStatusMl, lev.levStatusMl)
+        && Objects.equals(levReason, lev.levReason)
+        && Objects.equals(levApplyDate, lev.levApplyDate)
+        && Objects.equals(levMgrComments, lev.levMgrComments)
+        && Objects.equals(empId, lev.empId)) {
       return true;
     }
     return false;
@@ -55,18 +68,28 @@ public class LeaveDetails {
 
   @Override
   public final int hashCode() {
-    return Objects.hash(levId);
+    return Objects.hash(levId, levNoOfDays, levStartDate, levEndDate, levType,
+    levStatus, levStatusMl, levReason, levApplyDate, levMgrComments, empId);
   }
 
   @Override
   public final String toString() {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String sd = sdf.format(levStartDate);
+    String ed = sdf.format(levEndDate);
+    String ad = sdf.format(levApplyDate);
     return " LevId:" + levId + " Leave No. of days:" + levNoOfDays
-             + " Leave StartDate:" + levStartDate + " Leave EndDate:" + levEndDate
-             + "Leave Type:" + levType + "Leave Status:" + levStatus
-             + " Leave Reason:" + levReason + " Leave Apply Date:" + levApplyDate
+             + " Leave StartDate:" + sd + " Leave EndDate:" + ed
+             + " Leave Type:" + levType + " Leave Status:" + levStatus
+             + " Leave MAternity Status:" + levStatusMl
+             + " Leave Reason:" + levReason + " Leave Apply Date:" + ad
              + " Leave Manager Comments:" + levMgrComments + " empId:" + empId;
   }
-
+  /**
+  * Default Constructor for leaveDetails class.
+   */
+  public LeaveDetails() {
+  }
   /**
   * @param argLevId to initialize Leave ID.
   * @param argLevNoOfDays to initialize Leave Number of days.
@@ -74,6 +97,7 @@ public class LeaveDetails {
   * @param argLevEndDate to initialize Leave End Date.
   * @param argLevType to initialize Leave Type.
   * @param argLevStatus to initialize Leave Status.
+  * @param argLevStatusMl to initialize Leave Maternity Status.
   * @param argLevReason to initialize Leave Reason.
   * @param argLevApplyDate to initialize Leave Apply Date.
   * @param argLevMgrComments to initialize Leave Manager Comments.
@@ -82,8 +106,8 @@ public class LeaveDetails {
 
   public LeaveDetails(final int argLevId, final int argLevNoOfDays, final Date argLevStartDate,
                      final Date argLevEndDate, final LeaveType argLevType,
-                     final LeaveStatus argLevStatus, final String argLevReason,
-                     final Date argLevApplyDate,
+                     final LeaveStatus argLevStatus, final LeaveMaternityStatus argLevStatusMl,
+                     final String argLevReason, final Date argLevApplyDate,
                      final String argLevMgrComments, final int argEmpId) {
     this.levId = argLevId;
     this.levNoOfDays = argLevNoOfDays;
@@ -91,6 +115,7 @@ public class LeaveDetails {
     this.levEndDate = argLevEndDate;
     this.levType = argLevType;
     this.levStatus = argLevStatus;
+    this.levStatusMl = argLevStatusMl;
     this.levReason = argLevReason;
     this.levApplyDate = argLevApplyDate;
     this.levMgrComments = argLevMgrComments;
@@ -184,6 +209,23 @@ public class LeaveDetails {
   public final void setLevStatus(final LeaveStatus argLevStatus) {
     this.levStatus = argLevStatus;
   }
+
+  /**
+   *Gets the Leave Maternity Status.
+   *@return this Leave Maternity Status.
+   */
+  public final LeaveMaternityStatus getLevStatusMl() {
+    return levStatusMl;
+  }
+
+  /**
+   *
+   *@param argLevStatusMl to set Employee Leave Maternity Status.
+   */
+  public final void setLevStatusMl(final LeaveMaternityStatus argLevStatusMl) {
+    this.levStatusMl = argLevStatusMl;
+  }
+
   /**
    *Gets the Leave Reason.
    *@return this Leave Reason.
@@ -245,18 +287,29 @@ public class LeaveDetails {
 
   /**
    * The dao for LeaveDetails.
+   * @return the LeaveDetailsDAO class object.
    */
-  private static LeaveDetailsDAO dao() {
+  public static LeaveDetailsDAO dao() {
     DbConnection db = new DbConnection();
     return db.getConnect().onDemand(LeaveDetailsDAO.class);
   }
 
   /**
-   * The dao for LeaveDetails.
+   * The dao for Employee.
+   * @return the EmployeeDAO class object.
    */
-  private static EmployeeDAO edao() {
+  public static EmployeeDAO edao() {
     DbConnection db = new DbConnection();
     return db.getConnect().onDemand(EmployeeDAO.class);
+  }
+  /**
+   * list record by LevId.
+   * @param levId to get leave details.
+   * @return all leave details.
+   */
+  public static LeaveDetails listById(final int levId) {
+    LeaveDetails es = dao().objectById(levId);
+    return es;
   }
   /**
    * list all LeaveHistory details.
@@ -289,32 +342,107 @@ public class LeaveDetails {
       final String argStatus,
       final String argMgrComment) {
     String res = "";
-    LeaveDetails ld = dao().objectById(argLevId);
-    int noDays = ld.getLevNoOfDays();
-    int empId = ld.getEmpId();
-    Employee ed = edao().find(empId);
-    int levAvail = ed.getEmpAvlLeaveBal();
-    levAvail = levAvail + noDays;
-    int mgrId = ed.getEmpMgrId();
-    String leavStatus = "";
-    System.out.println(argStatus);
-    if (mgrId != argEmpMgrId) {
-      res = "You're not authorised to approve/deny the Leave";
+    LeaveDetails ld = LeaveDetails.listById(argLevId);
+    if (ld == null) {
+      res = "Leave Details not found";
+      return res;
     } else {
-      if (argStatus.equals("YES")) {
-        res = "Leave Approved Successfully...";
-        leavStatus = "APPROVED";
-        dao().approveDeny(argLevId, leavStatus, argMgrComment);
+      int noDays = ld.getLevNoOfDays();
+      int empId = ld.getEmpId();
+      LeaveType lt = ld.getLevType();
+      int levAvail = 0;
+      Employee ed = Employee.listById(empId);
+      if (lt == LeaveType.ML) {
+        levAvail = ed.getEmpAvlLeaveBalMl();
       } else {
-        res = "Leave Rejected";
-        leavStatus = "DENIED";
+        levAvail = ed.getEmpAvlLeaveBalEl();
       }
+      levAvail = levAvail + noDays;
+      int mgrId = ed.getEmpMgrId();
+      System.out.println("Mgr ID  " + mgrId);
+      String leavStatus = "";
+      String leavStatusMl = "";
+      System.out.println(argStatus);
+      if (mgrId != argEmpMgrId) {
+        res = "You're not authorised to approve/deny the Leave";
+      } else {
+        if (argStatus.equals("YES")) {
+          if (lt == LeaveType.ML) {
+            res = "Leave Approved successfully by Manager. Now it'll be escalated to HR.";
+            leavStatus = "APPROVED";
+            leavStatusMl = "PENDING";
+            dao().approveDenyMl(argLevId, leavStatus, leavStatusMl, argMgrComment);
+          } else {
+            res = "Leave Approved Successfully...";
+            leavStatus = "APPROVED";
+            levAvail = levAvail - noDays;
+            dao().approveDeny(argLevId, leavStatus, argMgrComment);
+          }
+        } else {
+          res = "Leave Rejected";
+          leavStatus = "DENIED";
+        }
         dao().approveDeny(argLevId, leavStatus, argMgrComment);
-        edao().increment(empId, levAvail);
+        edao().update(levAvail, empId);
+      }
+      return res;
+    }
+  }
+
+  /**
+   * @param argLevId to set leave id.
+   * @param argEmpHrMgrId to set ManagerId.
+   * @param argStatus to set Approve or Deny.
+   * @param argMgrComment to set Manager Responce.
+   * @return leave applied statement.
+   */
+  public static String approveDenyHr(final int argLevId,
+      final int argEmpHrMgrId,
+      final String argStatus,
+      final String argMgrComment) {
+    String res = "";
+    LeaveDetails ld = LeaveDetails.listById(argLevId);
+    if (ld == null) {
+      res = "Leave Details not found";
+      return res;
+    } else {
+      LeaveStatus ls = ld.getLevStatus();
+      if (ls == LeaveStatus.APPROVED) {
+        int noDays = ld.getLevNoOfDays();
+        int empId = ld.getEmpId();
+        int levAvail = 0;
+        Employee ed = Employee.listById(empId);
+        levAvail = ed.getEmpAvlLeaveBalMl();
+        String dept = ed.getEmpDept();
+        Employee hr = Employee.findHrMgrId(dept);
+        int hrMgrId = hr.getEmpId();
+        System.out.println("HrMgr ID  " + hrMgrId);
+        String leavStatus = "";
+        String leavStatusMl = "";
+        if (hrMgrId != argEmpHrMgrId) {
+          res = "You're not authorised to approve/deny the Leave";
+        } else {
+          if (argStatus.equals("YES")) {
+            res = "Leave Approved Successfully...";
+            leavStatus = "APPROVED";
+            leavStatusMl = "APPROVED";
+            levAvail = levAvail - noDays;
+          } else {
+            res = "Leave Rejected";
+            leavStatus = "APPROVED";
+            leavStatusMl = "DENIED";
+          }
+          dao().approveDenyMl(argLevId, leavStatus, leavStatusMl, argMgrComment);
+          edao().updateMl(levAvail, empId);
+        }
+        return res;
+      } else {
+        res = "This leave is not approved by Manager.";
+        return res;
       }
     }
-    return res;
   }
+
 
   /**
    * @param argEmpId to set employee id
@@ -337,43 +465,77 @@ public class LeaveDetails {
     Date sdate = sdf.parse(argLevStartDate);
     Date edate = sdf.parse(argLevEndDate);
     Date cur = new Date();
+    Calendar calObj = Calendar.getInstance();
+    calObj.setTime(edate);
     String appliedOn = sdf.format(cur);
     Date cdate = sdf.parse(appliedOn);
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(sdate);
     long ms = edate.getTime() - sdate.getTime();
     long m = ms / (1000 * 24 * 60 * 60);
     int count = dao().count(argEmpId, argLevStartDate, argLevEndDate);
     int days = (int) m;
     LeaveStatus leaveStatus;
+    LeaveMaternityStatus leaveStatusMl;
+    int levAvail;
+    String desgn = "";
     String res = "";
-    Employee e = edao().find(argEmpId);
-    int levAvail = e.getEmpAvlLeaveBal();
-    int lEmpId = e.getEmpId();
-    int mgrID = e.getEmpMgrId();
-    int dif = levAvail - argLevNoOfDays;
-    days = days + 1;
-    if (days < 0) {
-      res = "EndDate Must be Greater Than StartDate...";
-    } else if (dif < 0) {
-      res = "Insufficient Leave Balance...";
-    } else if (argLevNoOfDays != days) {
-      res = "Enter correct Number of Days as" + days;
-    } else if (sdate.compareTo(cdate) < 0) {
-      res = " Startdate is less than CurrentDate";
-    } else if (count == 1) {
-      res = "Already applied on particular date";
+    Employee e = Employee.listById(argEmpId);
+    if (e == null) {
+      res = "Such employee not found..";
+      return res;
     } else {
-      if (mgrID == 0) {
-        leaveStatus = LeaveStatus.APPROVED;
-        res = "Leave approved automatically";
+      if (argLevType == LeaveType.ML) {
+        levAvail = e.getEmpAvlLeaveBalMl();
       } else {
-        leaveStatus = LeaveStatus.PENDING;
-        res = "Leave Applied Successfully...";
+        levAvail = e.getEmpAvlLeaveBalEl();
       }
-      dao().insert(argEmpId, argLevStartDate, argLevEndDate,
-          argLevNoOfDays, argLevType, leaveStatus, argLevReason, appliedOn);
-      levAvail = levAvail - days;
-      edao().update(levAvail, lEmpId);
+      int lEmpId = e.getEmpId();
+      int mgrID = e.getEmpMgrId();
+      desgn = e.getEmpDesgn();
+      // String desgn = e.getEmpDesgn();
+      int dif = levAvail - argLevNoOfDays;
+      days = days + 1;
+      if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+          || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+        res = "StartDate cannot be Saturday or Sunday";
+      } else if (calObj.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+          || calObj.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+        res = "EndDate cannot be Saturday or Sunday......";
+      } else if (days < 0) {
+        res = "EndDate Must be Greater Than StartDate...";
+      } else if (dif < 0) {
+        res = "Insufficient Leave Balance...";
+      } else if (argLevNoOfDays != days) {
+        res = "Enter correct Number of Days as " + days;
+      } else if (sdate.compareTo(cdate) < 0) {
+        res = " Startdate is less than CurrentDate";
+      } else if (count == 1) {
+        res = "Already applied on particular date";
+      } else {
+        if (mgrID == 0) {
+          leaveStatus = LeaveStatus.APPROVED;
+          leaveStatusMl = LeaveMaternityStatus.APPROVED;
+          res = "Leave approved automatically";
+        } else if (desgn.equals("HR_MANAGER") && argLevType == LeaveType.ML) {
+          leaveStatus = LeaveStatus.APPROVED;
+          leaveStatusMl = LeaveMaternityStatus.APPROVED;
+          res = "Leave approved automatically";
+        } else {
+          leaveStatus = LeaveStatus.PENDING;
+          leaveStatusMl = LeaveMaternityStatus.PENDING;
+          res = "Leave Applied Successfully...";
+        }
+        dao().insertCeo(argEmpId, argLevStartDate, argLevEndDate,
+            argLevNoOfDays, argLevType, leaveStatus, leaveStatusMl, argLevReason, appliedOn);
+        levAvail = levAvail - days;
+        if (argLevType == LeaveType.ML) {
+          edao().updateMl(levAvail, lEmpId);
+        } else {
+          edao().update(levAvail, lEmpId);
+        }
+      }
+      return res;
     }
-    return res;
   }
 }

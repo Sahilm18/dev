@@ -6,6 +6,7 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import com.hexaware.FTP114.model.LeaveDetails;
 import com.hexaware.FTP114.model.LeaveStatus;
+import com.hexaware.FTP114.model.LeaveMaternityStatus;
 import com.hexaware.FTP114.model.LeaveType;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
@@ -38,13 +39,19 @@ public interface LeaveDetailsDAO  {
           @Bind("mgrCom") String mgrCom);
 
   /**
-   * return all the details of selected employee.
-   * @param levId the id of the employee.
-   * @return the list of employee details.
+   * Update ApproveDenyMl Status.
+   * @param leavStatus the Leave Status final valuer.
+   * @param leavStatusMl the Leave Maternity Status final valuer.
+   * @param mgrCom the Manager response.
+   * @param levId leaveId for approve/Deny.
    */
-  @SqlQuery("SELECT * FROM LEAVE_DETAILS WHERE LEV_ID= :levId")
-   @Mapper(LeaveDetailsMapper.class)
-   List<LeaveDetails> listById(@Bind("levId") int levId);
+  @SqlUpdate("UPDATE LEAVE_DETAILS SET LEV_STATUS = :leavStatus, LEV_MATERNITY_STATUS = :leavStatusMl, "
+        +
+        " LEV_MGR_COMMENTS = :mgrCom WHERE LEV_ID = :levId")
+    void approveDenyMl(@Bind("levId") int levId,
+          @Bind("leavStatus") String leavStatus,
+          @Bind("leavStatusMl") String leavStatusMl,
+          @Bind("mgrCom") String mgrCom);
 
   /**
    * return all the details of selected employee.
@@ -55,7 +62,62 @@ public interface LeaveDetailsDAO  {
   @Mapper(LeaveDetailsMapper.class)
   LeaveDetails objectById(@Bind("levId") int levId);
 
-   /**
+  //  /**
+  //  * insert all the details of the LeaveDetails.
+  //  * @param empId the employee id
+  //  * @param levStartDate the start date of the employee
+  //  * @param levEndDate the end date of the employee
+  //  * @param levNoOfDays the number of days
+  //  * @param levType the type of leave
+  //  * @param levStatus the status of leave
+  //  * @param levReason the reason for leave
+  //  * @param levAppliedDate the applied date of the employee
+  //  */
+  // @SqlUpdate("INSERT INTO LEAVE_DETAILS "
+  //              +
+  //              "             (EMP_ID, "
+  //              +
+  //              "              LEV_STARTDATE, "
+  //              +
+  //              "              LEV_ENDDATE, "
+  //              +
+  //              "              LEV_NO_OF_DAYS, "
+  //              +
+  //              "              LEV_TYPE, "
+  //              +
+  //              "              LEV_STATUS, "
+  //              +
+  //              "              LEV_REASON, "
+  //              +
+  //              "              LEV_APPLIED_ON) "
+  //              +
+  //              "VALUES       ( "
+  //              +
+  //              "              :empId, "
+  //              +
+  //              "              :levStartDate, "
+  //              +
+  //              "              :levEndDate, "
+  //              +
+  //              "              :levNoOfDays, "
+  //              +
+  //              "              :levType, "
+  //              +
+  //              "              :levStatus, "
+  //              +
+  //              "              :levReason, "
+  //              +
+  //              "              :levAppliedDate)")
+  //   void insert(@Bind("empId") int empId,
+  //               @Bind("levStartDate") String levStartDate,
+  //               @Bind("levEndDate") String levEndDate,
+  //               @Bind("levNoOfDays") int levNoOfDays,
+  //               @Bind("levType") LeaveType levType,
+  //               @Bind("levStatus") LeaveStatus levStatus,
+  //               @Bind("levReason") String levReason,
+  //               @Bind("levAppliedDate") String levAppliedDate);
+
+  /**
    * insert all the details of the LeaveDetails.
    * @param empId the employee id
    * @param levStartDate the start date of the employee
@@ -80,6 +142,8 @@ public interface LeaveDetailsDAO  {
                +
                "              LEV_STATUS, "
                +
+               "              LEV_MATERNITY_STATUS, "
+               +
                "              LEV_REASON, "
                +
                "              LEV_APPLIED_ON) "
@@ -98,15 +162,18 @@ public interface LeaveDetailsDAO  {
                +
                "              :levStatus, "
                +
+               "              :levStatusMl, "
+               +
                "              :levReason, "
                +
                "              :levAppliedDate)")
-    void insert(@Bind("empId") int empId,
+    void insertCeo(@Bind("empId") int empId,
                 @Bind("levStartDate") String levStartDate,
                 @Bind("levEndDate") String levEndDate,
                 @Bind("levNoOfDays") int levNoOfDays,
                 @Bind("levType") LeaveType levType,
                 @Bind("levStatus") LeaveStatus levStatus,
+                @Bind("levStatusMl") LeaveMaternityStatus levStatusMl,
                 @Bind("levReason") String levReason,
                 @Bind("levAppliedDate") String levAppliedDate);
 

@@ -31,27 +31,35 @@ public interface EmployeeDAO  {
   Employee find(@Bind("empID") int empID);
 
   /**
+   * return empId of the HrManager of the selected employee.
+   * @param dept the dept of the employee.
+   * @return the employee id.
+   */
+  @SqlQuery("SELECT * FROM EMPLOYEE_DETAILS WHERE EMP_DEPT = :dept AND DESIGNATION = 'HR_MANAGER'")
+  @Mapper(EmployeeMapper.class)
+  Employee findHr(@Bind("dept") String dept);
+
+  /**
   * update leave balance of the employee.
   * @param empAvlLeaveBal to update leave balance of employee.
   * @param empId to get employee Id.
   */
 
-  @SqlUpdate("UPDATE EMPLOYEE_DETAILS SET EMP_AVL_LEAVEBAL = :empAvlLeaveBal WHERE EMP_ID = :empId")
+  @SqlUpdate("UPDATE EMPLOYEE_DETAILS SET EMP_AVL_LEAVEBAL_EL = :empAvlLeaveBal WHERE EMP_ID = :empId")
   @Mapper(EmployeeMapper.class)
   void update(@Bind ("empAvlLeaveBal") int empAvlLeaveBal,
               @Bind ("empId") int empId);
 
   /**
-  * update leaveBalance of the employee after ApplyLeave.
+  * update maternity leave balance of the employee.
   * @param empAvlLeaveBal to update leave balance of employee.
   * @param empId to get employee Id.
   */
 
-  @SqlUpdate("UPDATE EMPLOYEE_DETAILS SET EMP_AVL_LEAVEBAL = :empAvlLeaveBal WHERE EMP_ID = :empId")
+  @SqlUpdate("UPDATE EMPLOYEE_DETAILS SET EMP_AVL_LEAVEBAL_ML = :empAvlLeaveBal WHERE EMP_ID = :empId")
   @Mapper(EmployeeMapper.class)
-  void increment(@Bind ("empId") int empId,
-                 @Bind ("empAvlLeaveBal") int empAvlLeaveBal);
-
+  void updateMl(@Bind ("empAvlLeaveBal") int empAvlLeaveBal,
+              @Bind ("empId") int empId);
   /**
   * close with no args is used to close the connection.
   */

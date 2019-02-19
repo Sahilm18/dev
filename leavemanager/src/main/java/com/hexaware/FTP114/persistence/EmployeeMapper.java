@@ -24,7 +24,8 @@ public class EmployeeMapper implements ResultSetMapper<Employee> {
      */
     return new Employee(rs.getInt("EMP_ID"), rs.getString("EMP_NAME"),
                         rs.getString("EMP_EMAIL"), rs.getString("EMP_MOB"),
-                        rs.getDate("EMP_DOJ"), rs.getInt("EMP_AVL_LEAVEBAL"),
-                        rs.getString("EMP_DEPT"), rs.getInt("MANAGER_ID"));
+                        rs.getDate("EMP_DOJ"), rs.getInt("EMP_AVL_LEAVEBAL_EL"),
+                        rs.getInt("EMP_AVL_LEAVEBAL_ML"), rs.getString("EMP_DEPT"),
+                        rs.getInt("MANAGER_ID"), rs.getString("DESIGNATION"));
   }
 }
