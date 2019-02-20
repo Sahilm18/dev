@@ -7,5 +7,11 @@ public class Tc {
         long x1=x;
         double y1 = x;
 
+        System.out.println(b);
+        System.out.println(i);
+        System.out.println(x);
+        System.out.println(x1);
+        System.out.println(y1);
+
     }
 }
