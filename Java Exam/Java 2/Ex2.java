@@ -5,6 +5,8 @@ public class Ex2 {
             throw new NullPointerException();
         } catch(ArithmeticException e) {
             System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 }
