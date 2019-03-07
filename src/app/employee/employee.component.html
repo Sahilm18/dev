@@ -1,0 +1,91 @@
+<html>
+  <body>
+    <style>
+      table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.bg-image {
+    background-image: url("https://5.imimg.com/data5/II/HD/GLADMIN-13956973/enterprise-architecture-consulting-services-500x500.png");
+    /* background-color: #cccccc; */
+    height: 640px;
+    width:1350px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #7aaed1}
+
+th {
+  background-color: rgb(17, 68, 141);
+  color: white;
+}
+
+h2 {
+  color :rgb(3, 35, 77);
+  text-align : center;
+}
+
+</style>
+   <div class="bg-image">
+      
+
+
+
+
+
+
+<br><br><br><br><br><br>
+
+<h2>WELCOME TO LEAVE MANAGEMENT SYSTEM</h2>
+
+<br><br><br>
+<form>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
+      <input type="text" class="form-control" name="searchString" placeholder="Type to search.." [(ngModel)]="searchString">
+    </div>
+  </div>
+</form>
+
+
+
+
+<table border="3">
+  <tr>
+    <th>EMPID</th>
+    <th>EMPNAME</th>
+    <th>EMPEMAIL</th>
+    <th>EMPMOB</th>
+    <th>EMPJOINDATE</th>
+    <th>EMPAVLLEAVEBAL</th>
+    <th>EMPDEPT</th>
+    <th>EMPMGRID</th>
+    <th>LOGIN</th>
+  </tr>
+  <tr *ngFor="let emp of employee | async | filterdata : {empName : searchString, empId : searchString, empEmail : searchString, empMob : searchString}">
+    <td>{{emp.empId}}</td>
+    <td>{{emp.empName}}</td>
+    <td>{{emp.empEmail}}</td>
+    <td>{{emp.empMob}}</td>
+    <td>{{emp.empJoinDate}}</td>
+    <td>{{emp.empAvlLeaveBal}}</td>
+    <td>{{emp.empDept}}</td>
+    <td>{{emp.empMgrId}}</td>
+    <td>
+    <input type="button" value="login" (click) ="login(emp.empId,emp.empMgrId)"/>
+    </td>
+  </tr>
+</table>
+   </div>
+
+</body>
+</html>

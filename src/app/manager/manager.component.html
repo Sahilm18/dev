@@ -1,0 +1,53 @@
+<html>
+    <body>
+      <style>
+ 
+       h3{
+         color :#6b899c;
+       } 
+        </style>
+  
+<h3>
+<b>MANAGER  DETAILS</b>
+</h3>
+          
+<div *ngIf="empno == 0;then thenBlock; else elseBlock"></div>
+
+<ng-template #thenBlock>
+  <div><b>No Manager</b></div>
+</ng-template>
+<ng-template #elseBlock>
+  <div *ngIf="employ.empMgrId != 0">
+
+      <b>EMPID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;</b>
+      {{(employ | async)?.empId}}
+      <br/>
+      <b>NAME &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b> 
+      {{(employ | async)?.empName}}
+      <br/>
+      <b>EMAIL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; </b>
+      {{(employ | async)?.empEmail}}
+      <br/>
+      <b>MOBILE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+      {{(employ | async)?.empMob}}
+      <br/> 
+      <b>JOINDATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+      {{(employ | async)?.empJoinDate}}
+      <br/>
+      <b>AVAILABLELEAVEBAL&nbsp;:&nbsp;</b>
+      {{(employ | async)?.empAvlLeaveBal}}
+      <br/>
+      <b>DEPARTMENT &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+      {{(employ | async)?.empDept}}
+      <br/>
+      <b>MANAGERID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+      {{(employ | async)?.empMgrId}}
+      <br/>
+  </div>
+</ng-template>
+</body>
+<hr>
+<br>
+
+</html>
+<br/>

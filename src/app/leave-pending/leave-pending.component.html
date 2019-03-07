@@ -1,0 +1,130 @@
+
+  
+<html>
+  <body>
+    <style>
+      table {
+        border-collapse: collapse;
+  
+}
+
+th, td {
+  text-align: left;
+  padding: 4px;
+}
+
+tr:nth-child(even){background-color: white}
+
+th {
+  background-color: rgb(57, 65, 57);
+  color: white;
+}
+
+h2 {
+  color :rgb(57, 65, 57);
+  text-align : center;
+}
+
+.bg-image {
+  background-image: url("https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80");
+  /* background-color: #cccccc; */
+  height: 640px;
+  width:1350px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #6b899c;
+}
+     h3{
+       color : #6b899c;
+     } 
+
+     </style>
+  <ul>
+    <li><a (click)="dashboard()" class="btn btn-primary">DashBoard</a></li>&nbsp;&nbsp;
+      <li><a (click)="history()" class="btn btn-primary">History</a></li>&nbsp;&nbsp;
+      
+      <li><a class="active">Pending Leave</a></li>
+      <li><a (click)="apply()" class="btn btn-primary">ApplyLeave</a></li>&nbsp;&nbsp;
+      </ul>
+
+
+ <div class="bg-image">
+    <p>
+        <b>LEAVE PENDING</b>
+      </p>
+<table border = "3">
+  <tr>
+  
+  </tr>
+  <tr *ngFor="let user of edata | async | orderBy: sempno:rever">
+  <div *ngIf=" empno == user.empMgrId">
+      <div>
+        <th> EMPID </th><th>NAME</th><th>AVL LEV BAL</th>
+        <tr>
+        <td width ="305">{{user.empId}}</td>
+      <td width ="305">{{user.empName}}</td>
+      <td width ="305">{{user.empAvlLeaveBal}}</td>
+        </tr>
+      </div>
+          <tr>
+            <th> LEVID </th><th>LEV NO DAYS </th><th>LEVSDATE</th><th>  LEVEDATE </th><th> LEVTYPE </th>
+            <th>LEVSTATUS</th><th> LEVREASON </th><th>APPLYDATE</th><th>MGR COMM</th><th>EMPID</th>
+          </tr>
+        </div>
+        <div>
+          <table border = "1">  
+                      <tr *ngFor="let user1 of employ | async | orderBy: order:reverse"  (click)="show(user1.levId,user.empId)">
+                              <div *ngIf="user.empId==user1.empId ">
+              <td width ="48">{{user1.levId}}</td>
+              <td width ="110" >{{user1.levNoOfDays}}</td>
+              <td width = "85" >{{user1.levStartDate}}</td>
+              <td width = "87">{{user1.levEndDate}}</td>
+              <td width = "77" >{{user1.levType}}</td>
+              <td width = "93" >{{user1.levStatus}}</td>
+              <td width = "100" >{{user1.levReason}}</td>
+              <td width = "96" >{{user1.levApplyDate}}</td>
+              <td width = "100" >{{user1.levMgrComments}}</td>
+              <td width = "50" >{{user1.empId}}</td>
+                </div>
+          </tr>
+          </table>
+        </div>  
+</table>
+<div *ngIf="flag==true">
+  <input type="button" value="Approve/Deny" (click)="appDen()"/>
+</div>
+
+<div *ngIf="flag==false">
+    <input type="button" value="Approve/Deny" disabled />
+  </div>
+</div>
+</body>    
+</html>

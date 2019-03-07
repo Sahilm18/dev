@@ -1,0 +1,112 @@
+
+
+
+<html>
+    <body>
+      <style>
+        table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #a1b4c0}
+  
+  th {
+    background-color: rgb(57, 65, 57);
+    color: white;
+  }
+  
+  h2 {
+    color :#4CAF50;
+    text-align : center;
+  }
+  .bg-image {
+    background-image: url("https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80");
+    /* background-color: #cccccc; */
+    height: 640px;
+    width:1350px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #6b899c;
+}
+     h3{
+       color : #6b899c;
+     } 
+
+     </style>
+  <ul>
+      
+      <li><a (click)="dashboard()" class="btn btn-primary">DashBoard</a></li>&nbsp;&nbsp;
+      <li><a class="active">History</a></li>
+      <li><a (click)="pending()" class="btn btn-primary">Pending Leave</a></li>&nbsp;&nbsp;
+      <li><a (click)="apply()" class="btn btn-primary">ApplyLeave</a></li>&nbsp;&nbsp;
+      </ul>
+      
+   <div class="bg-image">
+  <br/>
+<table border="3">
+  <tr>
+    <th>levId</th>
+    <th>levNoOfDays</th>
+    <th>levstartDate</th>
+    <th>levEndDate</th>
+    <th>levType</th>
+    <th>levStatus</th>
+    <th>levReason</th>
+    <th>levApplyDate</th>
+    <th>levMgrComments</th>
+    <th>empId</th>
+
+  </tr>
+  <tr *ngFor="let emp of leavedetails | async">
+    <td>{{emp.levId}}</td>
+    <td>{{emp.levNoOfDays}}</td>
+    <td>{{emp.levStartDate}}</td>
+    <td>{{emp.levEndDate}}</td>
+    <td>{{emp.levType}}</td>
+    <td>{{emp.levStatus}}</td>
+    <td>{{emp.levReason}}</td>
+    <td>{{emp.levApplyDate}}</td>
+    <td>{{emp.levMgrComments}}</td>
+    <td>{{emp.empId}}</td>
+    <!-- <td>
+    <input type="button" value="login" (click) ="login(emp.levId)"/>
+    </td> -->
+  </tr>
+</table>
+</div>
+</body>
+</html>

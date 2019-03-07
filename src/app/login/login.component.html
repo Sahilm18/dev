@@ -1,0 +1,142 @@
+<!-- <form name="frmlogin" (ngSubmit)="login()">
+User Name :
+<input type="text" id="user" [(ngModel)]="user" name="user" readonly>
+<br/><br/>
+
+Password :
+<input type="password" id="pwd" [(ngModel)]="pwd" name="pwd">
+<br/><br/>
+<input type="submit" value="login">
+</form> -->
+
+
+<html>
+<head>
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+<style>
+body {font-family: Arial, Helvetica, sans-serif;  
+    background-image: "hexa.jpg";
+}
+
+/* form {border: 2px solid #f1f1f1;} */
+
+input[type=text], input[type=password] {
+  width: 130%;
+  padding: 12px 20px;
+  margin: 9px 0;
+  display: inline-block;
+  border: 1px solid rgb(34, 117, 122);
+  box-sizing: 20px;
+}
+
+button {
+  background-color: rgb(226, 46, 46);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  text-align : center;
+  box-sizing:border-box;
+  width: 150%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* .cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+} */
+/* div {
+            height: 410px;
+            width: 70%;
+            background-color: white;
+            align : left;
+          } */
+
+
+
+.container {
+  padding: 10px;
+}
+
+span.pwd {
+  float: right;
+  padding-top: 11px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 50px) {
+  span.pwd {
+     display: block;
+     float: none;
+  }
+  /* .cancelbtn {
+     width: 100%;
+  } */
+}
+/* div {
+  height: 410px;
+  display: center;
+  width: 50%;
+  background-color:rgb(235, 212, 8);
+} */
+form { 
+margin: 0 auto; 
+width:270px;
+text-align:left;
+height:200px;
+}
+h2
+{
+    color :rgb(226, 46, 46);
+    text-align : center;
+    font-family: "SIMPSON";
+    font-size: 300%;
+}
+.hero-image {
+  background-image: url("https://hexaware.com/wp-content/uploads/2017/06/Resources.jpg");
+  /* background-color: #cccccc; */
+  height: 640px;
+  width:1350px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+</style>
+</head>
+<body>
+        <div class="hero-image">
+<br/><br/><br/><br/><br/>
+<h2>Login Form</h2>
+
+<!-- <img src={{user}}".jpg" alt="Girl in a jacket"> -->
+<form name="frmlogin" (ngSubmit)="login()">
+  <div class="container">
+    <label for="user" style="color:rgb(226, 46, 46);"><b>Username</b></label>
+    <input type="text" id="user" [(ngModel)]="user" placeholder="Enter Username" name="user" required readonly>
+    
+
+    <label for="pwd" style="color:rgb(226, 46, 46);"><b>Password</b></label>
+    <input type="password" id="pwd" [(ngModel)]="pwd" placeholder="Enter Password" name="pwd" required>
+    
+        
+    <button type="submit">Login</button>
+    <!-- <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+    <!-- <span class="pwd">Forgot <a href="#">password?</a></span> -->
+  </div> 
+</form>
+</div> 
+</body>
+</html>

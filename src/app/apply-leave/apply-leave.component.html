@@ -1,0 +1,137 @@
+<html>
+        
+<style>
+ input[type=button], input[type=button], input[type=button] 
+{
+  background-color: #415866;
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.bg-image {
+    background-image: url("https://images.unsplash.com/photo-1489844097929-c8d5b91c456e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=752&q=80");
+    /* background-color: #cccccc; */
+    height: 620px;
+    width:1330px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+div {
+  /* border-radius: 5px; */
+  /* background-color: #f2f2f2; */
+  padding: 10px;
+}
+.hover {
+    opacity: 0.8;
+    background-color: #e22c72;
+  }
+  ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #6b899c;
+}
+     h3{
+       color : #6b899c;
+     } 
+
+     </style>
+  <ul>
+      <li><a (click)="dashboard()" class="btn btn-primary">Dashboard</a></li>&nbsp;&nbsp;
+
+      <li><a (click)="history()" class="btn btn-primary">History</a></li>&nbsp;&nbsp;
+      <li><a (click)="pending()" class="btn btn-primary">Pending Leave</a></li>&nbsp;&nbsp;
+      <li><a class="active">ApplyLeave</a></li>
+
+      </ul>
+
+ <div class="bg-image">
+<div>
+  <body background="">
+               
+    <h1 style= "color:#415866;text-align:left;"><b>Apply Leave Form</b> </h1>
+  <div style="text-align:left">
+        <form #userForm="ngForm" (ngSubmit)="apply(userForm)">
+        <div class="form-group">
+               
+            <label for= "levStartDate"><b><font size="4">Start Date :</font></b></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="Date" required="required" [(ngModel)]="obj.levStartDate" name="levStartDate" #levStartDate="ngModel" placeholder="Your last name.." >  
+            <div *ngIf="levStartDate.invalid && userForm.submitted && !isValidFormSubmitted"  [ngClass] = "'error'"> 
+                  <h6>Start Date is Required.</h6>
+                 </div>
+        </div>
+        <div class= "form-group">
+                <label for= "levEndDate"><b><font size="4">End Date :</font>&nbsp;</b> </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type = "Date" class= "form-control"
+                id = "levEndDate" required="required"
+                [(ngModel)]= "obj.levEndDate" name="levEndDate" #levEndDate="ngModel" (change)="calculateDays()">
+                <div *ngIf="levEndDate.invalid && userForm.submitted && !isValidFormSubmitted"  [ngClass] = "'error'"> 
+                       <h6>End Date is Required.</h6> 
+                      </div>
+            </div>
+            <div class="form-group">
+                    <label for="levType"><b><font size="4">Leave Type :</font></b></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select [(ngModel)]="obj.levType" name="levType" required="required" #levType="ngModel">
+                        <option value="EL">EL</option>
+                        <option value="SL">SL</option>
+                        <option value="ML">ML</option>
+                    </select>
+            </div>
+            <div class= "form-group">
+                    <label for= "levNoOfDays"><b><font size="4">Number of Days :</font></b> </label>
+                    <input type = "number" class= "form-control" readonly
+                    id = "levNoOfDays" required="required"
+                    [(ngModel)]= "obj.levNoOfDays" name="levNoOfDays" #levNoOfDays="ngModel" >
+                    <div *ngIf="levNoOfDays.invalid && userForm.submitted && !isValidFormSubmitted"  [ngClass] = "'error'"> 
+                            <h6>Leave Days is Required.</h6> 
+                           </div>
+                </div>
+            <div class= "form-group">
+                    <label for= "levReason"><b><font size="4">Leave Reason :</font> </b></label>&nbsp;&nbsp;&nbsp;
+                    <input type = "string" class= "form-control" size="30"
+                    id = "levReason" required="required"
+                    [(ngModel)]= "obj.levReason" name="levReason" #levReason="ngModel">
+                    <div *ngIf="levReason.invalid && userForm.submitted && !isValidFormSubmitted"  [ngClass] = "'error'"> 
+                            <h6>Reason is Required.</h6> 
+                           </div>
+                </div>
+                <!-- <input type="button" (click)="apply()" value="Apply" >&nbsp;&nbsp; -->
+                <button class = button> Apply</button>
+                     <input type="button"  (click)="cancel()" value="Cancel" > 
+                <h3 *ngIf="isValidFormSubmitted == true"> STATUS: {{this.msg}} </h3>
+        </form>
+    </div>
+
+
+    
+  </body>
+</div>
+</div>
+</html>

@@ -1,0 +1,73 @@
+<html>
+  <body>
+    <style>
+input[type=button], input[type=button], input[type=button] 
+{
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+    h2 {
+      color : rgb(6, 121, 10);
+    }</style>
+
+<h2>APPROVE/DENY FORM</h2>
+<br>
+<div class="d" align = "">
+<b>EMPLOYEE ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
+{{(employ | async )?.empId}}
+<br><br>
+<b>EMPLOYEE NAME &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
+{{(employ | async )?.empName}}
+<br><br>
+<b>START DATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
+{{(leave | async )?.levStartDate}}
+<br><br>
+
+<b>END DATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</b>
+{{(leave | async )?.levEndDate}}
+<br><br>
+
+<b>AVAILABLE LEAVE BALANCE &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;</b>
+{{(employ | async )?.empAvlLeaveBal}}
+<br><br>
+
+<b>NUMBER OF DAYS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+{{(leave | async )?.levNoOfDays}}
+<br><br>
+
+<b>LEAVE TYPE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+{{(leave | async )?.levType}}
+<br><br>
+
+<b>REASON &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</b>
+{{(leave | async )?.levReason}}
+<br><br>
+<div class="row">
+    <div class="col-100">
+      <!-- <label for=" Comments"> Comments</label> -->
+      <b>COMMENTS:</b>
+    </div>
+    <br>
+    
+    <div class="col-100">
+      <textarea id=" Comments" name="" [(ngModel)]="obj.levMgrComments"  placeholder="Any comments.." style="height:1000px" style="width:350px"></textarea>
+    </div>
+  </div>
+
+<br>
+<input type="button" (click)="approve()" class="btn btn-success" value="Approve">&nbsp;&nbsp;
+<input type="button" (click)="deny()" class="btn btn-danger" value="Deny">&nbsp;&nbsp;
+<input type="button" (click)="cancel()" class="btn btn-primary" value="Cancel">
+<br><br>
+<b>RESULT IS : {{msg}}</b>
+</div>
+</body>
+</html>
+
+  
