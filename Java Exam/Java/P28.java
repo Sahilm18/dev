@@ -5,7 +5,7 @@ class C1 {
 }
 
 class C2 extends C1 {
-    static void test() {
+    void test() {
         System.out.println("Bye");
     }
 }

@@ -1,5 +1,5 @@
 public class P38 {
-    int sum() {
+    static int sum() {
         return 5;
     }
 

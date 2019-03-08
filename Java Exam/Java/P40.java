@@ -1,7 +1,5 @@
 class Demo {
-    static {
-        System.out.println("Hi");
-    }
+    
 }
 public class P40 {
     public static void main(String[] args) {
@@ -9,5 +7,8 @@ public class P40 {
     }
     static {
         System.out.println("Hello");
+    }
+    static {
+        System.out.println("Hi");
     }
 }

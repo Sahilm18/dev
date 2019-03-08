@@ -19,7 +19,7 @@ public class Inh1 {
 
         First f =(First)obj2;
         f.show();
-        Second s =(Second)obj1;
-        s.show();
+        // Second s =(Second)obj1;
+        // s.show();
     }
 }
