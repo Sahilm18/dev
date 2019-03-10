@@ -28,7 +28,7 @@ this.empno = parseInt(localStorage.getItem("empId"));
 this.obj = new LeaveDetails();
 alert("Employ ID " +this.empno);
 
- }
+ } 
  calculateDays() {
   let date1: string=this.obj.levStartDate.toString();
   let date2: string=this.obj.levEndDate.toString();
