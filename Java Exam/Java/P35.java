@@ -4,10 +4,11 @@ public class P35 {
     
     public static int show() {
 
-        return x--;
+        return --x;
     }
 
     public static void main(String[] args) { 
-        show();
+        int i = show();
+        System.out.println(i);
     }
 }

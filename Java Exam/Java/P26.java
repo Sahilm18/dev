@@ -4,7 +4,7 @@ public class P26 {
         int[] a=new int[]{12,5,3,23,45};
         System.out.println(a);
         for(int i : a) {
-            System.out.println(a);
+            System.out.println(i);
         }
         ArrayList<Integer> alist = new ArrayList<>();
         alist.add(new Integer(522));
